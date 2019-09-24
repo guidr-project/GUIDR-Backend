@@ -1,9 +1,11 @@
 const express = require('express');
 const db = require('../database/db-config.js');
+const userRouter = require('../user/userRoutes.js')
 
 const server = express();
 
 server.use(express.json());
+server.use('/users', userRouter);
 
 server.get('/', (req, res) => {
     res.send('API running...');
