@@ -23,8 +23,8 @@
 
 | Links                                                | Endpoints            |
 | ---------------------------------------------------- | -------------------- |
-| [GET Trips by user ID](#get-trips-by-userid)         | `/user/:id/trips`    |
-| [POST Add new trip](#add-new-trip)                   | `/user/:id/trips`    |
+| [GET Trips by user ID](#get-trips-by-userid)         | `/users/:id/trips`   |
+| [POST Add new trip](#add-new-trip)                   | `/users/:id/trips`   |
 | [GET Get profile by user ID](#get-profile-by-userid) | `/users/:id/profile` |
 | [PUT Update user profile info](#update-profile)      | `/users/:id/profile` |
 | [GET Get all public trips](#get-public-trips)        | `/trips`             |
