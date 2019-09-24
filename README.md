@@ -82,7 +82,7 @@
 
 ### [GET] Get Trips by user ID
 
-#### URL: https://guidr-project.herokuapp.com/user/:id/trips
+#### URL: https://guidr-project.herokuapp.com/users/:id/trips
 
 **Return:**
 
@@ -104,7 +104,7 @@
 
 ### [POST] Add a new trip
 
-#### URL: https://guidr-project.herokuapp.com/user/:id/trips
+#### URL: https://guidr-project.herokuapp.com/users/:id/trips
 
 > **Required:** `title`, `description`, `private`, `type`, `start_date`, `end_date`, `duration_hours`, `duration_days`
 
@@ -142,7 +142,7 @@
 
 ### [GET] Get profile by user ID
 
-#### URL: https://guidr-project.herokuapp.com/user/:id/profile
+#### URL: https://guidr-project.herokuapp.com/users/:id/profile
 
 **Return:**
 
