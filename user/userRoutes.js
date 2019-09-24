@@ -35,4 +35,27 @@ router.post('/login', (req, res) => {
     })
 })
 
+router.get('/:id/trips', (req, res) => {
+    const id = req.params.id
+    Users.getTrips(id)
+    .then(trips => {
+        res.status(200).json(trips)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
+
+router.get('/:id/profile', (req, res) => {
+    const id = req.params.id
+
+    Users.getProfile(id)
+    .then(profile => {
+        res.status(200).json(profile)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
+
 module.exports = router;
