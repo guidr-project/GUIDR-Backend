@@ -4,7 +4,7 @@ const restricted = require('../auth/authRestricted.js');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', restricted, (req, res) => {
     Trips.getAllTrips()
         .then(trips => {
             res.status(200).json(trips);
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
         });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', restricted, (req, res) => {
     const id = req.params.id;
     const changes = req.body;
 
@@ -27,7 +27,7 @@ router.put('/:id', (req, res) => {
         });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', restricted, (req, res) => {
     const id = req.params.id;
     Trips.deleteTrip(id)
         .then(response => {
