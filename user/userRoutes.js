@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs')
 const Users = require('./userModels.js')
 const Token = require('../auth/generateToken.js')
+const restricted = require('../auth/authRestricted.js')
 
 const router = express.Router();
 
@@ -46,12 +47,48 @@ router.get('/:id/trips', (req, res) => {
     })
 })
 
-router.get('/:id/profile', (req, res) => {
+router.post('/:id/trips', (req, res) => {
+    const id = req.params.id
+    const body = req.body
+    Users.addTrip({...body, user_id: id})
+    .then(trip => {
+        res.status(201).json(trip)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
+
+router.get('/:id/profile', restricted, (req, res) => {
     const id = req.params.id
 
     Users.getProfile(id)
     .then(profile => {
         res.status(200).json(profile)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
+
+router.post('/:id/profile', (req, res) => {
+    const id = req.params.id
+    const body = req.body
+    Users.addProfile({...body, user_id: id})
+    .then(profile => {
+        res.status(201).json(profile)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
+
+router.put('/:id/profile', (req, res) => {
+    const id = req.params.id
+    const body = req.body
+    Users.updateProfile(body, id)
+    .then(profile => {
+        res.status(201).json(profile)
     })
     .catch(err => {
         res.status(500).json(err)

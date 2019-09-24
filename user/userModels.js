@@ -5,7 +5,10 @@ module.exports = {
     findById,
     findby,
     getTrips,
-    getProfile
+    getProfile,
+    addTrip,
+    addProfile,
+    updateProfile
 }
 
 function add (user) {
@@ -24,7 +27,7 @@ function findby (item) {
 function getTrips(id) {
     return db('users as u')
     .join('trips as t','u.id', 't.user_id')
-    .select('u.username', 't.title', 't.description', 't.private', 't.type', 't.start_date', 't.end_date', 't.duration_hours', 't.duration_days')
+    .select('u.username','t.id', 't.title', 't.description', 't.private', 't.type', 't.start_date', 't.end_date', 't.duration_hours', 't.duration_days')
     .where({'t.user_id': id})
     .then(trips => {
         const privateBoolean = trips.map(trip => {
@@ -41,4 +44,16 @@ function getProfile(id){
     .select('u.full_name', 'u.email', 'p.title', 'p.description', 'p.age', 'p.experience_duration')
     .where({'p.user_id': id})
 
+}
+
+function addTrip(trip) {
+    return db('trips').insert(trip).returning('*')
+}
+
+function addProfile(profile){
+    return db('profiles').insert(profile).returning('*')
+}
+
+function updateProfile(changes, user_id) {
+    return db('profiles').update(changes).where({user_id}).returning('*')
 }
