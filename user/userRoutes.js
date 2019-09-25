@@ -71,17 +71,17 @@ router.get('/:id/profile', restricted, (req, res) => {
     })
 })
 
-router.post('/:id/profile', (req, res) => {
-    const id = req.params.id
-    const body = req.body
-    Users.addProfile({...body, user_id: id})
-    .then(profile => {
-        res.status(201).json(profile)
-    })
-    .catch(err => {
-        res.status(500).json(err)
-    })
-})
+// router.post('/:id/profile', (req, res) => {
+//     const id = req.params.id
+//     const body = req.body
+//     Users.addProfile({...body, user_id: id})
+//     .then(profile => {
+//         res.status(201).json(profile)
+//     })
+//     .catch(err => {
+//         res.status(500).json(err)
+//     })
+// })
 
 router.put('/:id/profile', (req, res) => {
     const id = req.params.id
