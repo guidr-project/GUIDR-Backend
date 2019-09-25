@@ -18,7 +18,7 @@ router.get('/', restricted, (req, res) => {
         });
 });
 
-router.put('/:id', restricted, (req, res) => {
+router.put('/:id', restricted, middleware.testIdExists,(req, res) => {
     const id = req.params.id;
     const changes = req.body;
 
@@ -31,7 +31,7 @@ router.put('/:id', restricted, (req, res) => {
         });
 });
 
-router.delete('/:id', middleware.testIdExists, restricted, (req, res) => {
+router.delete('/:id', restricted, middleware.testIdExists,  (req, res) => {
     const id = req.params.id;
     Trips.deleteTrip(id)
         .then(response => {
