@@ -13,7 +13,6 @@ router.post('/signUp', (req, res) => {
 
     Users.add({ ...body, password: hash })
         .then(user => {
-            console.log(user);
             Users.addProfile({ title: null, description: null, age: null, experience_duration: null, user_id: user[0].id }).then(user => {
                 res.status(201).json({ message: 'New user created' });
             });
@@ -42,7 +41,7 @@ router.post('/login', (req, res) => {
         });
 });
 
-router.get('/:id/trips', restricted, (req, res) => {
+router.get('/:id/trips', (req, res) => {
     const id = req.params.id;
     Users.getTrips(id)
         .then(trips => {
@@ -53,7 +52,7 @@ router.get('/:id/trips', restricted, (req, res) => {
         });
 });
 
-router.post('/:id/trips', restricted, (req, res) => {
+router.post('/:id/trips', (req, res) => {
     const id = req.params.id;
     const body = req.body;
     Users.addTrip({ ...body, user_id: id })
@@ -65,7 +64,7 @@ router.post('/:id/trips', restricted, (req, res) => {
         });
 });
 
-router.get('/:id/profile', restricted, (req, res) => {
+router.get('/:id/profile', (req, res) => {
     const id = req.params.id;
 
     Users.getProfile(id)
@@ -89,7 +88,7 @@ router.get('/:id/profile', restricted, (req, res) => {
 //         });
 // });
 
-router.put('/:id/profile', restricted, (req, res) => {
+router.put('/:id/profile', (req, res) => {
     const id = req.params.id;
     const body = req.body;
 
@@ -99,7 +98,7 @@ router.put('/:id/profile', restricted, (req, res) => {
         .then(profile => {
             Users.updateUser({ full_name, email }, id).then(user => {
                 const fullUserInfo = { ...profile[0], ...user[0] };
-                res.status(201).json(fullUserInfo);
+                res.status(200).json(fullUserInfo);
             });
         })
         .catch(err => {
