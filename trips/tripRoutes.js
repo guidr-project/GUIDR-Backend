@@ -1,13 +1,16 @@
 const express = require('express');
 const Trips = require('./tripModels.js');
 const restricted = require('../auth/authRestricted.js');
+const formateDate = require('../utils/formatDate.js');
 
 const router = express.Router();
 
-router.get('/', restricted, (req, res) => {
+router.get('/', (req, res) => {
     Trips.getAllTrips()
         .then(trips => {
-            res.status(200).json(trips);
+            const tripsWithFormattedDate = formateDate(trips);
+
+            res.status(200).json(tripsWithFormattedDate);
         })
         .catch(err => {
             res.status(500).json(err);
