@@ -6,7 +6,7 @@ const middleware = require('../utils/middleware.js')
 
 const router = express.Router();
 
-router.get('/', restricted, (req, res) => {
+router.get('/', (req, res) => {
     Trips.getAllTrips()
         .then(trips => {
             const tripsWithFormattedDate = formateDate(trips);
@@ -18,7 +18,7 @@ router.get('/', restricted, (req, res) => {
         });
 });
 
-router.put('/:id', restricted, middleware.testIdExists,(req, res) => {
+router.put('/:id',  middleware.testIdExists,(req, res) => {
     const id = req.params.id;
     const changes = req.body;
 
@@ -31,7 +31,7 @@ router.put('/:id', restricted, middleware.testIdExists,(req, res) => {
         });
 });
 
-router.delete('/:id', restricted, middleware.testIdExists,  (req, res) => {
+router.delete('/:id',  middleware.testIdExists,  (req, res) => {
     const id = req.params.id;
     Trips.deleteTrip(id)
         .then(response => {
