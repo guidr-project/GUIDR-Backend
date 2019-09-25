@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
         });
 });
 
-router.put('/:id', restricted, (req, res) => {
+router.put('/:id', (req, res) => {
     const id = req.params.id;
     const changes = req.body;
 
@@ -30,7 +30,7 @@ router.put('/:id', restricted, (req, res) => {
         });
 });
 
-router.delete('/:id', restricted, (req, res) => {
+router.delete('/:id', (req, res) => {
     const id = req.params.id;
     Trips.deleteTrip(id)
         .then(response => {
