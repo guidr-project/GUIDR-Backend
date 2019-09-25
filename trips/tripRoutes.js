@@ -2,10 +2,11 @@ const express = require('express');
 const Trips = require('./tripModels.js');
 const restricted = require('../auth/authRestricted.js');
 const formateDate = require('../utils/formatDate.js');
+const middleware = require('../utils/middleware.js')
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', restricted, (req, res) => {
     Trips.getAllTrips()
         .then(trips => {
             const tripsWithFormattedDate = formateDate(trips);
@@ -17,7 +18,7 @@ router.get('/', (req, res) => {
         });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', restricted, (req, res) => {
     const id = req.params.id;
     const changes = req.body;
 
@@ -30,7 +31,7 @@ router.put('/:id', (req, res) => {
         });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', middleware.testIdExists, restricted, (req, res) => {
     const id = req.params.id;
     Trips.deleteTrip(id)
         .then(response => {
