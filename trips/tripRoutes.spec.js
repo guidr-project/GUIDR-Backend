@@ -83,12 +83,14 @@ describe('tripRoutes.js', () => {
             await request(server)
                 .post('/users/login')
                 .send({
-                    username: 'username',
+                    username: 'username2',
                     password: 'password'
                 })
                 .set('Accept', 'application/json')
                 .then(res => {
+                    //console.log(res)
                     userId = JSON.parse(res.res.text).id;
+
                 });
 
             await request(server)
@@ -105,12 +107,12 @@ describe('tripRoutes.js', () => {
                 })
                 .set('Accept', 'application/json')
                 .then(res => {
-                    tripId = JSON.parse(res.res.text);
-                    console.log(tripId);
+                    tripId = JSON.parse(res.res.text)[0].id;
+                    //console.log(tripId);
                 });
 
             return request(server)
-                .delete(`/trips/1`)
+                .delete(`/trips/${tripId}`)
                 .then(res => {
                     expect(res.status).toBe(200);
                 });

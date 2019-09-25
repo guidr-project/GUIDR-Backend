@@ -41,7 +41,7 @@ router.post('/login', (req, res) => {
         });
 });
 
-router.get('/:id/trips', (req, res) => {
+router.get('/:id/trips', restricted, (req, res) => {
     const id = req.params.id;
     Users.getTrips(id)
         .then(trips => {
@@ -52,7 +52,7 @@ router.get('/:id/trips', (req, res) => {
         });
 });
 
-router.post('/:id/trips', (req, res) => {
+router.post('/:id/trips',restricted,  (req, res) => {
     const id = req.params.id;
     const body = req.body;
     Users.addTrip({ ...body, user_id: id })
@@ -64,7 +64,7 @@ router.post('/:id/trips', (req, res) => {
         });
 });
 
-router.get('/:id/profile', (req, res) => {
+router.get('/:id/profile', restricted, (req, res) => {
     const id = req.params.id;
 
     Users.getProfile(id)
@@ -76,19 +76,7 @@ router.get('/:id/profile', (req, res) => {
         });
 });
 
-// router.post('/:id/profile', (req, res) => {
-//     const id = req.params.id;
-//     const body = req.body;
-//     Users.addProfile({ ...body, user_id: id })
-//         .then(profile => {
-//             res.status(201).json(profile);
-//         })
-//         .catch(err => {
-//             res.status(500).json(err);
-//         });
-// });
-
-router.put('/:id/profile', (req, res) => {
+router.put('/:id/profile', restricted, (req, res) => {
     const id = req.params.id;
     const body = req.body;
 
