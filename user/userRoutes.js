@@ -3,10 +3,11 @@ const bcrypt = require('bcryptjs');
 const Users = require('./userModels.js');
 const Token = require('../auth/generateToken.js');
 const restricted = require('../auth/authRestricted.js');
+const middleware = require('../utils/middleware.js')
 
 const router = express.Router();
 
-router.post('/signUp', (req, res) => {
+router.post('/signUp', middleware.validateUsername, middleware.validateEmail, (req, res) => {
     const body = req.body;
 
     const hash = bcrypt.hashSync(body.password, 8);
@@ -18,7 +19,7 @@ router.post('/signUp', (req, res) => {
             });
         })
         .catch(err => {
-            res.status(500).json(err);
+            res.status(500).json({message: "server error"});
         });
 });
 
@@ -41,7 +42,7 @@ router.post('/login', (req, res) => {
         });
 });
 
-router.get('/:id/trips', restricted, (req, res) => {
+router.get('/:id/trips', middleware.testUserIdExists,  (req, res) => {
     const id = req.params.id;
     Users.getTrips(id)
         .then(trips => {
@@ -52,7 +53,7 @@ router.get('/:id/trips', restricted, (req, res) => {
         });
 });
 
-router.post('/:id/trips',restricted,  (req, res) => {
+router.post('/:id/trips', middleware.testUserIdExists, (req, res) => {
     const id = req.params.id;
     const body = req.body;
     Users.addTrip({ ...body, user_id: id })
@@ -64,7 +65,7 @@ router.post('/:id/trips',restricted,  (req, res) => {
         });
 });
 
-router.get('/:id/profile', restricted, (req, res) => {
+router.get('/:id/profile',  middleware.testUserIdExists, (req, res) => {
     const id = req.params.id;
 
     Users.getProfile(id)
@@ -76,7 +77,7 @@ router.get('/:id/profile', restricted, (req, res) => {
         });
 });
 
-router.put('/:id/profile', restricted, (req, res) => {
+router.put('/:id/profile',  middleware.testUserIdExists, (req, res) => {
     const id = req.params.id;
     const body = req.body;
 
