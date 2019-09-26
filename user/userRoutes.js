@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const Users = require('./userModels.js');
 const Token = require('../auth/generateToken.js');
 const restricted = require('../auth/authRestricted.js');
-const middleware = require('../utils/middleware.js')
+const middleware = require('../utils/middleware.js');
 
 const router = express.Router();
 
@@ -19,7 +19,7 @@ router.post('/signUp', middleware.validateUsername, middleware.validateEmail, (r
             });
         })
         .catch(err => {
-            res.status(500).json({message: "server error"});
+            res.status(500).json({ message: 'server error' });
         });
 });
 
@@ -42,7 +42,7 @@ router.post('/login', (req, res) => {
         });
 });
 
-router.get('/:id/trips', middleware.testUserIdExists,  (req, res) => {
+router.get('/:id/trips', restricted, middleware.testUserIdExists, (req, res) => {
     const id = req.params.id;
     Users.getTrips(id)
         .then(trips => {
@@ -53,7 +53,7 @@ router.get('/:id/trips', middleware.testUserIdExists,  (req, res) => {
         });
 });
 
-router.post('/:id/trips', middleware.testUserIdExists, (req, res) => {
+router.post('/:id/trips', restricted, middleware.testUserIdExists, (req, res) => {
     const id = req.params.id;
     const body = req.body;
     Users.addTrip({ ...body, user_id: id })
@@ -65,7 +65,7 @@ router.post('/:id/trips', middleware.testUserIdExists, (req, res) => {
         });
 });
 
-router.get('/:id/profile',  middleware.testUserIdExists, (req, res) => {
+router.get('/:id/profile', restricted, middleware.testUserIdExists, (req, res) => {
     const id = req.params.id;
 
     Users.getProfile(id)
@@ -77,7 +77,7 @@ router.get('/:id/profile',  middleware.testUserIdExists, (req, res) => {
         });
 });
 
-router.put('/:id/profile',  middleware.testUserIdExists, (req, res) => {
+router.put('/:id/profile', restricted, middleware.testUserIdExists, (req, res) => {
     const id = req.params.id;
     const body = req.body;
 
