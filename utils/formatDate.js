@@ -1,6 +1,6 @@
 module.exports = trips => {
-    let tripsWithFormattedDate = trips.map(trip => {
-        let monthLegend = {
+    const tripsWithFormattedDate = trips.map(trip => {
+        const monthLegend = {
             Jan: 'January',
             Feb: 'February',
             Mar: 'March',
@@ -15,35 +15,27 @@ module.exports = trips => {
             Dec: 'December'
         };
 
-        let startMonth;
-        let startDay;
-        let startYear;
-
-        let endMonth;
-        let endDay;
-        let endYear;
-
-        let startDate = trip.start_date
+        const startDate = trip.start_date
             .toString()
             .split('00:00:00')[0]
             .trim()
             .split(' ');
-        let endDate = trip.end_date
+        const endDate = trip.end_date
             .toString()
             .split('00:00:00')[0]
             .trim()
             .split(' ');
 
-        startMonth = monthLegend[startDate[1]];
-        startDay = startDate[2];
-        startYear = startDate[3];
+        const startMonth = monthLegend[startDate[1]];
+        const startDay = startDate[2];
+        const startYear = startDate[3];
 
-        endMonth = monthLegend[endDate[1]];
-        endDay = endDate[2];
-        endYear = endDate[3];
+        const endMonth = monthLegend[endDate[1]];
+        const endDay = endDate[2];
+        const endYear = endDate[3];
 
-        formattedStartDate = `${startMonth} ${startDay}, ${startYear}`;
-        formattedEndDate = `${endMonth} ${endDay}, ${endYear}`;
+        const formattedStartDate = `${startMonth} ${startDay}, ${startYear}`;
+        const formattedEndDate = `${endMonth} ${endDay}, ${endYear}`;
 
         return { ...trip, start_date: formattedStartDate, end_date: formattedEndDate };
     });
