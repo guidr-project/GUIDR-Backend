@@ -1,7 +1,12 @@
-exports.seed = function(knex) {
+exports.seed = function (knex) {
     return knex('users')
         .del()
-        .then(function() {
-            return knex('users').insert([{ username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }, { username: 'username2', password: 'password', full_name: 'Hannah Tuttle', email: 'fakeemail2@gmail.com' }]);
+        .then(function () {
+            return knex('users').insert(
+                [
+                    { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' },
+                    { username: 'username2', password: 'password', full_name: 'Hannah Tuttle', email: 'fakeemail2@gmail.com' },
+                    { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }, { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }, { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }, { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }, { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }, { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }, { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }, { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }, { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }, { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }, { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }, { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }, { username: 'username', password: 'password', full_name: 'Sean McDonnell', email: 'fakeemail@gmail.com' }
+                ]);
         });
 };
